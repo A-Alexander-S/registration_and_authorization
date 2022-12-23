@@ -1,0 +1,21 @@
+@import '../../assets/styles/zeroing.scss';
+
+body {
+  color: #FFFFFF;
+  height: 100%
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &>.main {
+    flex: 1 1 auto;
+  }
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
