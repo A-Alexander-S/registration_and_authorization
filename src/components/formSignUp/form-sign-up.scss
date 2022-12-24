@@ -1,0 +1,50 @@
+@import '../../assets/styles/mixins.scss';
+
+.form-sign-up {
+  width: 500px;
+  height: 519px;
+  padding: 15px;
+  background: $white;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+
+  &__title {
+    @include roboto(400, normal);
+    font-size: 20px;
+    line-height: 23px;
+    color: $black;
+    margin-bottom: 16px;
+  }
+
+  &__name {
+    margin-bottom: 16px;
+
+    &>label {
+      margin-bottom: 9px;
+    }
+  }
+
+  &__email {
+    margin-bottom: 31px;
+
+    &>label {
+      margin-bottom: 9px;
+    }
+  }
+
+  &__password {
+    margin-bottom: 16px;
+
+    &>label {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__label {
+    display: block;
+    @include roboto(400, normal);
+    font-size: 16px;
+    line-height: 22px;
+    color: $black;
+  }
+}

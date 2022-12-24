@@ -21,8 +21,6 @@ const UsersPage = () => {
             </div>
           </div>
         </div>
-
-
       </div>
       <section className="users-page__users">
         <div className="container">
