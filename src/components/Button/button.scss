@@ -1,0 +1,14 @@
+@import '../../assets/styles/mixins.scss';
+
+.button {
+  width: 81px;
+  height: 38px;
+  border: 1px solid $greyLight;
+  border-radius: 8px;
+  background-color: $violet;
+  @include roboto(400, normal);
+  font-size: 16px;
+  line-height: 22px;
+  color: #F8F8F8;
+  cursor: pointer;
+}

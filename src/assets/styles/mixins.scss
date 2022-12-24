@@ -1,0 +1,17 @@
+//COLORS
+$black: #151317;
+$violet: #512689;
+$grey: #808185;
+$greyLight: #F8F8F8;
+$red: #FF6161;
+$white: #FFFFFF;
+
+//PARAMS
+$container-max-width: 1280px;
+
+//MIXINS
+@mixin roboto($fontWeight, $fontStyle) {
+  font-family: 'Roboto';
+  font-weight: $fontWeight;
+  font-style: $fontStyle;
+}
