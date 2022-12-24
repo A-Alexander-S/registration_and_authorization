@@ -2,14 +2,13 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './button.scss';
 
-const Button = ({ children, height }) => {
+const Button = ({ width, height, children }) => {
   return (
     <button
       className="button"
-      style={{ height: height }}
+      style={{ height: height, width: width }}
     >
       {children}
-      {/* <Link className="button__link">{children}</Link> */}
     </button>
   )
 }
