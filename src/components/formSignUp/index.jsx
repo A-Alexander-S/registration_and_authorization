@@ -17,7 +17,8 @@ const FormSignUp = () => {
           id='sign-up-name'
           type='text'
           placeholder='Артур'
-          width='100%'
+          width='468px'
+        // width='100%'
         />
       </div>
       <div className="form-sign-up__email">

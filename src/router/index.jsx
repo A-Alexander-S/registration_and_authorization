@@ -7,8 +7,8 @@ function Router() {
   return (
     <Routes>
       <Route path="/" element={<App />}>
-        <Route index element={<StartPage />} />
-        <Route path="users" element={<UsersPage />} />
+        <Route path="start" element={<StartPage />} />
+        <Route index element={<UsersPage />} />
       </Route>
     </Routes>
   )

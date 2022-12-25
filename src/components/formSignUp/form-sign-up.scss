@@ -1,7 +1,8 @@
 @import '../../assets/styles/mixins.scss';
 
 .form-sign-up {
-  width: 500px;
+  max-width: 500px;
+  // width: 500px;
   height: 519px;
   padding: 15px;
   background: $white;

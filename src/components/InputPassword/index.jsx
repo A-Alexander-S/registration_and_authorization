@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import eyeClosed from './img/eye-closed.svg';
-import eyeOpen from './img/eye-open.svg';
+// import eyeClosed from './img/eye-closed.svg';
+// import eyeOpen from './img/eye-open.svg';
 import './input-password.scss';
 
 const InputPassword = ({
@@ -21,7 +21,7 @@ const InputPassword = ({
       className='input-password'
       type={type}
       placeholder={placeholder}
-      autocomplete="off"
+      autoComplete="off"
       style={{ width: width }}
       onChange={handlers.onChange}
     />

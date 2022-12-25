@@ -4,6 +4,7 @@ import Modal from '../../components/Modal';
 import './start-page.scss';
 
 const StartPage = () => {
+
   return (
     <div className="start-page">
       <div className="start-page__header">
@@ -12,13 +13,17 @@ const StartPage = () => {
             <Button
               width='200px'
               height='38px'
-            >Зарегестрироваться</Button>
+            >
+              Зарегестрироваться
+            </Button>
           </div>
           <div className="start-page__wrapp-button start-page__wrapp-button--sign-in">
             <Button
               width='200px'
               height='38px'
-            >Войти</Button>
+            >
+              Войти
+            </Button>
           </div>
         </div>
       </div>
