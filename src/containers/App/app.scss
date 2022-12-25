@@ -24,3 +24,27 @@ body {
 #root {
   height: 100%;
 }
+
+@media (max-width: 1280px) {
+  .container {
+    max-width: 970px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 750px;
+  }
+}
+
+@media (max-width: 730px) {
+  .container {
+    max-width: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    max-width: none;
+  }
+}

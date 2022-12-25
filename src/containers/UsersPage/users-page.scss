@@ -7,13 +7,18 @@
   &__flex {
     display: flex;
     flex-direction: column;
-    padding-top: 32px;
   }
 
   &__header {
     height: 265px;
     background: $violet;
     margin-bottom: 48px;
+
+    &-flex {
+      display: flex;
+      flex-direction: column;
+      padding-top: 32px;
+    }
 
     &-desk {
       @include roboto(400, normal);
@@ -51,7 +56,50 @@
   }
 
   &__wrapp-user-card {
+    width: 23.828;
     margin-bottom: 20px;
   }
 
+  &__wrapp-pagination {
+    display: inline-block;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .users-page__header {
+    height: 281px;
+  }
+
+  .users-page__header-flex {
+    padding: 23px 27px 0px 27px;
+  }
+
+  .users-page__h1 {
+    font-size: 36px;
+    line-height: 42px;
+    margin-bottom: 16px;
+  }
+
+  .users-page__header-desk {
+    max-width: 507px;
+    font-size: 16px;
+    line-height: 19px;
+  }
+
+  .users-page__users-flex {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 730px) {
+
+  .users-page__wrapp-button--exit {
+    width: auto;
+  }
+
+  .users-page__users-flex {
+    justify-content: center;
+  }
 }

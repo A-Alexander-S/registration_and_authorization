@@ -19,7 +19,7 @@ const InputField = ({
       className='input-field'
       type={type}
       placeholder={placeholder}
-      autocomplete="off"
+      autoComplete="off"
       style={{ width: width }}
       onChange={handlers.onChange}
     />
