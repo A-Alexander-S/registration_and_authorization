@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getUsersThunk } from '../../store/middlewares/usersMiddlewares';
 import UserCard from '../../components/userCard';
 import Button from '../../components/Button';
@@ -28,7 +29,7 @@ const UsersPage = () => {
   }, []);
 
   const callbacks = {
-    onGetUsers: page => dispatch(getUsersThunk(page)),
+    onGetUsers: useCallback(page => dispatch(getUsersThunk(page))),
   }
 
   return (
@@ -64,16 +65,17 @@ const UsersPage = () => {
         <section className="users-page__users">
           <div className="container">
             <div className="users-page__users-flex">
-              {select.users?.map(el => (
-                <div className="users-page__wrapp-user-card" key={el.id}>
+              {select.users?.map(el => {
+                const addr = `/users/${el.id}`;
+                return <Link to={addr} className="users-page__wrapp-user-card" key={el.id}>
                   <UserCard
                     id={el.id}
                     first_name={el.first_name}
                     last_name={el.last_name}
                     avatar={el.avatar}
                   />
-                </div>
-              ))}
+                </Link>
+              })}
             </div>
           </div>
         </section>

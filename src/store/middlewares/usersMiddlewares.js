@@ -1,5 +1,5 @@
-import { LIST_USERS_URL } from "../../constants/api";
-import { getUsersActions } from "../actions/usersActions";
+import { LIST_USERS_URL, USER_URL } from "../../constants/api";
+import { getUsersActions, getUserActions } from "../actions/usersActions";
 import { getApi } from "../../utils/network";
 
 /**
@@ -10,11 +10,27 @@ export const getUsersThunk = (page = 1, per_page = 8) => async (dispatch) => {
 
   const res = await getApi(`${LIST_USERS_URL}?page=${page}&per_page=${per_page}`);
   if (!res.ok) {
-    console.log('getUsersThunk res:', res)
     dispatch(getUsersActions.failure(res));
   }
 
   const data = await res.json()
 
   dispatch(getUsersActions.success(data));
+}
+
+/**
+ * Get запрос на получение  пользователя по id
+*/
+export const getUserThunk = (userId) => async (dispatch) => {
+  dispatch(getUserActions.start());
+
+  const res = await getApi(`${USER_URL}/${userId}`);
+  if (!res.ok) {
+    console.log('getUserThunk res:', res)
+    dispatch(getUserActions.failure(res));
+  }
+
+  const data = await res.json()
+  console.log('getUserThunk data:', data.data)
+  dispatch(getUserActions.success(data.data));
 }

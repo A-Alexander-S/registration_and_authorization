@@ -2,13 +2,15 @@ import { Route, Routes } from "react-router-dom";
 import App from "../containers/App";
 import UsersPage from "../containers/UsersPage";
 import StartPage from "../containers/StartPage";
+import UserPage from "../containers/UserPage";
 
 function Router() {
   return (
     <Routes>
       <Route path="/" element={<App />}>
         <Route path="start" element={<StartPage />} />
-        <Route index element={<UsersPage />} />
+        <Route path="users" element={<UsersPage />} />
+        <Route path="users/:id" element={<UserPage />} />
       </Route>
     </Routes>
   )

@@ -7,8 +7,9 @@ const UserCard = ({
   last_name,
   avatar,
 }) => {
+
   return (
-    <div className="user-card" data-user-id={id}>
+    <div className="user-card">
       <div className="user-card__preview">
         <div className="user-card__avatar">
           <img src={avatar} alt="Аватарка" />
@@ -27,7 +28,7 @@ const UserCard = ({
 }
 
 UserCard.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   first_name: PropTypes.string.isRequired,
   last_name: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
