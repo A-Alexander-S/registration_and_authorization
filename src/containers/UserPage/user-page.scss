@@ -1,0 +1,153 @@
+@import '../../assets/styles/mixins.scss';
+
+.user-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    height: 265px;
+    background: $violet;
+    margin-bottom: 49px;
+
+    &-flex {
+      display: flex;
+      padding-top: 32px;
+    }
+
+    &-btns {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-body {
+      display: flex;
+      flex: 1 1 auto;
+      padding-top: 7px;
+
+      &-info {
+        flex: 0 1 auto;
+        align-items: flex-end;
+        padding-top: 28px;
+      }
+    }
+  }
+
+  &__name {
+    @include roboto(400, normal);
+    font-size: 64px;
+    line-height: 75px;
+    color: $white;
+    margin-bottom: 16px;
+  }
+
+  &__status {
+    @include roboto(400, normal);
+    font-size: 32px;
+    line-height: 38px;
+    color: $white;
+    text-align: center;
+  }
+
+  &__avatar {
+    width: 187px;
+    height: 187px;
+    border-radius: 100px;
+    margin-right: 32px;
+    overflow: hidden;
+
+    & img {
+      width: 100%;
+    }
+  }
+
+  &__info {
+    &-flex {
+      display: flex;
+      padding-left: 108px
+    }
+  }
+
+  &__desc {
+    max-width: 630px;
+    @include roboto(400, normal);
+    font-size: 16px;
+    line-height: 22px;
+    color: $black;
+    margin-right: 130px;
+  }
+
+  &__contacts {
+
+    &-phone {
+      margin-bottom: 21px;
+
+      &::before {
+        content: url(./img/phone.svg);
+        margin-right: 10px;
+      }
+
+      @include roboto(400, normal);
+      font-size: 16px;
+      line-height: 22px;
+      color: $black;
+    }
+
+    &-email {
+      &::before {
+        content: url(./img/email.svg);
+        margin-right: 10px;
+      }
+
+      @include roboto(400, normal);
+      font-size: 16px;
+      line-height: 22px;
+      color: $black;
+    }
+  }
+
+  &__wrapp {
+    &-button--prev {
+      margin-right: 27px;
+    }
+
+    &-button--exit {}
+  }
+
+}
+
+@media (max-width: 767px) {
+
+  .user-page__header {
+    height: 412px;
+    margin-bottom: 33px;
+  }
+
+  .user-page__header-body {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .user-page__avatar {
+    margin-right: 0;
+  }
+
+  .user-page__status {
+    margin-bottom: 16px;
+  }
+
+  .user-page__info-flex {
+    flex-direction: column-reverse;
+  }
+
+  .user-page__contacts-phone {
+    margin-bottom: 25px;
+  }
+
+  .user-page__contacts-email {
+    margin-bottom: 34px;
+  }
+}
+
+@media (max-width: 730px) {}

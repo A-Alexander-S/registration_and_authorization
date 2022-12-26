@@ -1,4 +1,5 @@
 import { GET_USERS } from "../constants/actionTypes";
+import { GET_USER } from "../constants/actionTypes";
 
 export const getUsersActions = {
   start: () => ({
@@ -10,6 +11,20 @@ export const getUsersActions = {
   }),
   failure: (error) => ({
     type: GET_USERS.FAILURE,
+    payload: error
+  })
+}
+
+export const getUserActions = {
+  start: () => ({
+    type: GET_USER.START
+  }),
+  success: (data) => ({
+    type: GET_USER.SUCCESS,
+    payload: data
+  }),
+  failure: (error) => ({
+    type: GET_USER.FAILURE,
     payload: error
   })
 }
