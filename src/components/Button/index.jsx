@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import './button.scss';
 
 const Button = ({
@@ -9,11 +8,16 @@ const Button = ({
   onClick
 }) => {
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    onClick(e);
+  }
+
   return (
     <button
       className="button"
       style={{ height: height, width: width }}
-      onClick={() => onClick()}
+      onClick={handleClick}
     >
       {children}
     </button>

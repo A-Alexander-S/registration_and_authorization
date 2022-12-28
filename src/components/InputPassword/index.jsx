@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 // import eyeClosed from './img/eye-closed.svg';
 // import eyeOpen from './img/eye-open.svg';
@@ -11,8 +12,14 @@ const InputPassword = ({
   onChange
 }) => {
 
+
+  const [value, setValue] = useState();
+
   const handlers = {
-    onChange: (e) => onChange(e),
+    onChange: (e) => {
+      // setValue(e.currentTarget.value);
+      onChange(e.currentTarget.value);
+    },
   }
 
   return (
@@ -22,6 +29,7 @@ const InputPassword = ({
       type={type}
       placeholder={placeholder}
       autoComplete="off"
+      // value={value}
       style={{ width: width }}
       onChange={handlers.onChange}
     />

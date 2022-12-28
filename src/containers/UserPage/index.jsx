@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getUserThunk } from '../../store/middlewares/usersMiddlewares';
 import Button from '../../components/Button';
 import './user-page.scss';
@@ -15,8 +15,6 @@ const UserPage = () => {
     user: store.usersReducer.userData.user,
   }));
 
-  console.log('UserPage select.user:', select.user);
-
   const [widthWindow, setWidthWindow] = useState(1280);
 
   useEffect(() => {
@@ -29,17 +27,9 @@ const UserPage = () => {
     });
   }, []);
 
-  const handlers = {
-    onRedirect: () => {
-      console.log('handlers.onRedirect: ', 'onRedirect')
-      navigate('/users')
-    },
-  }
-
   const callbacks = {
     onRedirect: useCallback(() => {
-      console.log('callbacks.onRedirect: ', 'onRedirect')
-      navigate('/users')
+      navigate('/users');
     }),
   }
 
@@ -48,24 +38,28 @@ const UserPage = () => {
       <div className="user-page__header">
         <div className="container">
           <div className="user-page__header-flex">
-
-
             <div className="user-page__wrapp-button user-page__wrapp-button--prev">
-              <Button
-                width='81px'
-                height='38px'
-                onClick={callbacks.onRedirect}
-              >
-                Назад
-              </Button>
+              {widthWindow > 767 ?
+                <Button
+                  width='81px'
+                  height='38px'
+                  onClick={callbacks.onRedirect}
+                >
+                  Назад
+                </Button>
+                :
+                <svg width="7" height="15" viewBox="0 0 7 15" fill="none">
+                  <path d="M5.83749 14.0013C5.68809 14.0018 5.54048 13.9688 5.4055 13.9048C5.27052 13.8407 5.15161 13.7473 5.05749 13.6313L0.227488 7.63125C0.0804062 7.45232 0 7.22788 0 6.99625C0 6.76463 0.0804062 6.54018 0.227488 6.36125L5.22749 0.361252C5.39723 0.157036 5.64114 0.0286112 5.90556 0.0042315C6.16999 -0.0201482 6.43327 0.0615137 6.63749 0.231252C6.8417 0.400991 6.97013 0.644902 6.99451 0.909329C7.01889 1.17375 6.93723 1.43704 6.76749 1.64125L2.29749 7.00125L6.61749 12.3613C6.73977 12.508 6.81745 12.6868 6.84133 12.8763C6.86521 13.0659 6.83429 13.2583 6.75223 13.4308C6.67018 13.6034 6.54042 13.7488 6.37831 13.8499C6.2162 13.9509 6.02852 14.0035 5.83749 14.0013Z" fill="#F8F8F8" />
+                </svg>
+              }
             </div>
-
             <div className="user-page__header-body">
               <div className="user-page__avatar">
                 <img src={select.user?.avatar} alt="" />
               </div>
               <div className="user-page__header-body-info">
                 <p className="user-page__name">
+                  {/* Артур Королёв */}
                   {`${select.user?.first_name} ${select.user?.last_name}`}
                 </p>
                 <p className="user-page__status">
@@ -73,7 +67,6 @@ const UserPage = () => {
                 </p>
               </div>
             </div>
-
             <div className="user-page__wrapp-button user-page__wrapp-button--exit">
               {widthWindow > 767
                 ?
@@ -88,15 +81,11 @@ const UserPage = () => {
                 </svg>
               }
             </div>
-
-
-
           </div>
         </div>
       </div>
       <div className="user-page__info">
         <div className="container">
-
           <div className="user-page__info-flex">
             <div className="user-page__desc">
               Клиенты видят в нем эксперта по вопросам разработки комплексных решений финансовых продуктов, включая такие аспекты, как организационная структура, процессы, аналитика и ИТ-компоненты. Он помогает клиентам лучше понимать структуру рисков их бизнеса, улучшать процессы за счет применения новейших технологий и увеличивать продажи, используя самые современные аналитические инструменты.
@@ -107,7 +96,6 @@ const UserPage = () => {
               <br />
               Помимо разнообразных проектов для клиентов финансового сектора, Сорин ведет активную предпринимательскую деятельность. Он является совладельцем сети клиник эстетической медицины в Швейцарии, предлагающей инновационный подход к красоте, а также инвестором других бизнес-проектов.
             </div>
-
             <ul className="user-page__contacts">
               <li className="user-page__contacts-phone">
                 +7 (954) 333-44-55
@@ -117,8 +105,6 @@ const UserPage = () => {
               </li>
             </ul>
           </div>
-
-
         </div>
       </div>
     </div>
