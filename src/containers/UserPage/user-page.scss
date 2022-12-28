@@ -117,7 +117,68 @@
 
 }
 
+@media (max-width: 1280px) {
+  .user-page__contacts {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 992px) {
+  .user-page__name {
+    @include roboto(400, normal);
+    font-size: 36px;
+    line-height: 42px;
+    color: $white;
+  }
+
+  .user-page__status {
+    @include roboto(400, normal);
+    font-size: 20px;
+    line-height: 23px;
+    color: $white;
+  }
+
+  .user-page__info-flex {
+    flex-direction: column-reverse;
+    padding-left: 17px;
+    padding-right: 16px;
+    // align-self: flex-start;
+  }
+
+  .user-page__contacts-phone {
+    margin-bottom: 23px;
+    @include roboto(400, normal);
+    font-size: 16px;
+    line-height: 22px;
+    color: $black;
+  }
+
+  .user-page__contacts-email {
+    @include roboto(400, normal);
+    font-size: 16px;
+    line-height: 22px;
+    color: $black;
+    margin-bottom: 30px;
+  }
+}
+
 @media (max-width: 767px) {
+
+
+  .user-page__header-flex {
+    padding-top: 23px;
+    padding-left: 33px;
+    padding-right: 27px;
+  }
+
+  .user-page__wrapp-button--prev {
+    margin-right: 0;
+    align-self: flex-start;
+  }
+
+  .user-page__wrapp-button--exit {
+    align-self: flex-start;
+  }
 
   .user-page__header {
     height: 412px;
@@ -125,8 +186,27 @@
   }
 
   .user-page__header-body {
+    padding-top: 0;
     flex-direction: column-reverse;
     align-items: center;
+
+    &-info {
+      padding-top: 41px;
+    }
+  }
+
+  .user-page__name {
+    @include roboto(400, normal);
+    font-size: 36px;
+    line-height: 42px;
+    color: $white;
+  }
+
+  .user-page__status {
+    @include roboto(400, normal);
+    font-size: 20px;
+    line-height: 23px;
+    color: $white;
   }
 
   .user-page__avatar {
@@ -137,16 +217,36 @@
     margin-bottom: 16px;
   }
 
-  .user-page__info-flex {
-    flex-direction: column-reverse;
-  }
+  // .user-page__info-flex {
+  //   flex-direction: column-reverse;
+  //   padding-left: 17px;
+  //   padding-right: 16px;
+  //   // align-self: flex-start;
+  // }
 
-  .user-page__contacts-phone {
-    margin-bottom: 25px;
-  }
+  // .user-page__contacts-phone {
+  //   margin-bottom: 23px;
+  //   @include roboto(400, normal);
+  //   font-size: 16px;
+  //   line-height: 22px;
+  //   color: $black;
+  // }
 
-  .user-page__contacts-email {
-    margin-bottom: 34px;
+  // .user-page__contacts-email {
+  //   @include roboto(400, normal);
+  //   font-size: 16px;
+  //   line-height: 22px;
+  //   color: $black;
+  //   margin-bottom: 30px;
+  // }
+
+  .user-page__desc {
+    margin-right: 0;
+    @include roboto(400, normal);
+    font-size: 16px;
+    line-height: 22px;
+    color: $black;
+    margin-bottom: 32px;
   }
 }
 

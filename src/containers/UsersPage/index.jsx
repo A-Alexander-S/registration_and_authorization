@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getUsersThunk } from '../../store/middlewares/usersMiddlewares';
+import { logoutActions } from '../../store/actions/authActions';
 import UserCard from '../../components/userCard';
 import Button from '../../components/Button';
 import Pagination from '../../components/Pagination';
@@ -10,10 +11,12 @@ import './users-page.scss';
 const UsersPage = () => {
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const select = useSelector(store => ({
     users: store.usersReducer.usersData.users,
     totalPages: store.usersReducer.usersData.pagination?.total_pages,
+    isLogout: store.authReducer.isLogout
   }));
 
   const [widthWindow, setWidthWindow] = useState(1280);
@@ -28,8 +31,16 @@ const UsersPage = () => {
     });
   }, []);
 
+  // useEffect(() => {
+  //   if (select.isLogout) navigate('/start');
+  // }, [select.isLogout]);
+
   const callbacks = {
     onGetUsers: useCallback(page => dispatch(getUsersThunk(page))),
+    onLogout: useCallback(() => {
+      dispatch(logoutActions.start());
+      navigate('/start');
+    }),
   }
 
   return (
@@ -43,6 +54,7 @@ const UsersPage = () => {
                   ?
                   <Button
                     height='38px'
+                    onClick={callbacks.onLogout}
                   >
                     Выход
                   </Button>

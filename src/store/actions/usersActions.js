@@ -1,5 +1,4 @@
-import { GET_USERS } from "../constants/actionTypes";
-import { GET_USER } from "../constants/actionTypes";
+import { GET_USERS, GET_USER } from "../constants/actionTypes";
 
 export const getUsersActions = {
   start: () => ({
