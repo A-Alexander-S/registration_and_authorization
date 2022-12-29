@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getUserThunk } from '../../store/middlewares/usersMiddlewares';
+import { logoutActions } from '../../store/actions/authActions';
 import Button from '../../components/Button';
 import './user-page.scss';
 
@@ -30,6 +31,10 @@ const UserPage = () => {
   const callbacks = {
     onRedirect: useCallback(() => {
       navigate('/users');
+    }),
+    onLogout: useCallback(() => {
+      dispatch(logoutActions.start());
+      navigate('/start');
     }),
   }
 
@@ -72,6 +77,7 @@ const UserPage = () => {
                 ?
                 <Button
                   height='38px'
+                  onClick={callbacks.onLogout}
                 >
                   Выход
                 </Button>

@@ -18,6 +18,12 @@ export const POST_SIGN_UP = {
   FAILURE: '@@auth/POST_SIGN_UP_FAILURE'
 }
 
+export const POST_SIGN_IN = {
+  START: '@@auth/POST_SIGN_IN_START',
+  SUCCESS: '@@auth/POST_SIGN_IN_SUCCESS',
+  FAILURE: '@@auth/POST_SIGN_IN_FAILURE',
+}
+
 //logout
 export const LOGOUT = {
   START: '@@auth/LOGOUT_START',
