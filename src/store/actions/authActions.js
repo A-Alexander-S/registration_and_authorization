@@ -1,4 +1,4 @@
-import { POST_SIGN_UP, LOGOUT } from "../constants/actionTypes"
+import { POST_SIGN_UP, POST_SIGN_IN, LOGOUT } from "../constants/actionTypes"
 
 export const postSignUpActions = {
   start: () => ({
@@ -12,6 +12,20 @@ export const postSignUpActions = {
     type: POST_SIGN_UP.FAILURE,
     payload: error
   })
+}
+
+export const postSignInActions = {
+  start: () => ({
+    type: POST_SIGN_IN.START
+  }),
+  success: (data) => ({
+    type: POST_SIGN_IN.SUCCESS,
+    payload: data
+  }),
+  failure: (error) => ({
+    type: POST_SIGN_IN.FAILURE,
+    payload: error
+  }),
 }
 
 export const logoutActions = {
