@@ -1,121 +1,28 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { postSignUpThunk } from '../../store/middlewares/authMiddlewares';
+import { useInput } from '../../hooks/useInput';
 import Button from '../Button';
-// import eyeClosed from './img/';
 import './form-sign-up.scss';
-
+// eve.holt@reqres.in
 const FormSignUp = () => {
+
+  const [isVisiblePassw, setIsVisiblePassw] = useState(false);
+  const [isVisibleConfirmPassw, setIsVisibleConfirmPassw] = useState(false);
 
   const dispatch = useDispatch();
 
-  const [formRegistration, setFormRegistration] = useState({
-    email: '',
-    password: '',
-    // email: "eve.holt@reqres.in",
-    // password: "pistol",
-  });
-  const [formValidation, setFormValidation] = useState({
-    email: false,
-    password: false,
-    confirmPassw: false,
-  });
-  const [confirmPassw, setConfirmPassw] = useState('');
-  const [isVisiblePassw, setIsVisiblePassw] = useState({
-    passw: false,
-    confirmPassw: false,
-  });
-
-  const validate = (field) => {
-    switch (field) {
-      case 'email':
-        return formValidation.email == true && formRegistration.email != ''
-          ? 'input-field input-field--error'
-          : 'input-field';
-        break;
-      case 'passw':
-        return formValidation.password == true && formRegistration.password != ''
-          ? 'input-field input-password input-field--error'
-          : 'input-field input-password';
-        break;
-      case 'confirmPassw':
-        return formValidation.confirmPassw == true && confirmPassw != ''
-          ? 'input-field input-password input-field--error'
-          : 'input-field input-password';
-        break;
-      default:
-        break;
-    }
-  }
+  const email = useInput('', { isEmpty: true, minLength: 9, isEmail: true });
+  const password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20 });
 
   const handlers = {
-    setEmail: (e) => {
-      const email = e.currentTarget.value;
-
-      setFormValidation({
-        ...formValidation,
-        email: email == 'eve.holt@reqres.in' ? false : true
-      });
-
-      setFormRegistration({
-        ...formRegistration,
-        email: email
-      });
-    },
-    setPassw: (e) => {
-      const passw = e.currentTarget.value;
-
-      var pattern = new RegExp(/[A-Za-z0-9]{6,}/);
-
-      setFormValidation({
-        ...formValidation,
-        password: pattern.test(passw) ? false : true
-      });
-
-      setFormRegistration({
-        ...formRegistration,
-        password: e.currentTarget.value
-      });
-    },
-    onChangeConfirmPassw: (e) => {
-      setFormValidation({
-        ...formValidation,
-        confirmPassw: e.currentTarget.value == formRegistration.password ? false : true
-      });
-
-      setConfirmPassw(e.currentTarget.value);
-    },
-    setIsVisiblePassw: (e) => {
-
-      switch (e.currentTarget.dataset.passwPic) {
-        case 'passw':
-          setIsVisiblePassw({
-            ...isVisiblePassw,
-            passw: !isVisiblePassw.passw
-          });
-          break;
-        case 'confirm-passw':
-          setIsVisiblePassw({
-            ...isVisiblePassw,
-            confirmPassw: !isVisiblePassw.confirmPassw
-          });
-          break;
-        default:
-          break;
-      }
-    }
+    setIsVisiblePassw: () => setIsVisiblePassw(!isVisiblePassw),
+    setIsVisibleConfirmPassw: () => setIsVisibleConfirmPassw(!isVisibleConfirmPassw),
   }
 
   const callbacks = {
     onSignUp: useCallback((e) => {
-      // e.preventDefault();
-      if (
-        (formValidation.email == false && formRegistration.email != '')
-        && (formValidation.password == false && formRegistration.password != '')
-        && (formValidation.confirmPassw == false && confirmPassw != '')) {
-        // console.log('postSignUp:', 'postSignUp')
-        dispatch(postSignUpThunk(formRegistration));
-      }
+      dispatch(postSignUpThunk({ email: email.value, password: password.value }));
     }),
   }
 
@@ -142,15 +49,27 @@ const FormSignUp = () => {
         </label>
         <input
           id='sign-up-email'
-          className={validate('email')}
+          className={(email.isDirty && email.minLengthError) || (email.isDirty && email.minLengthError) || (email.isDirty && email.emailError) ? 'input-field input-field--error' : 'input-field'}
           type='email'
           placeholder='eve.holt@reqres.in'
           autoComplete="off"
-          onChange={handlers.setEmail}
+          value={email.value}
+          onChange={e => email.onChange(e)}
+          onBlur={e => email.onBlur(e)}
         />
-        {(formValidation.email && formRegistration.email != '') &&
-          <div className="form-sign-up__error form-sign-up--email-error">
-            Ошибка
+        {
+          (email.isDirty && email.isEmpty) && <div className="form-sign-up__error form-sign-up--email-error">
+            Поле не может быть пустым
+          </div>
+        }
+        {
+          (email.isDirty && email.minLengthError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Минимум 9 знаков
+          </div>
+        }
+        {
+          (email.isDirty && email.emailError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Некоректный емейл
           </div>
         }
       </div>
@@ -168,16 +87,28 @@ const FormSignUp = () => {
         </svg>
         <input
           id='sign-up-password'
-          className={validate('passw')}
-          type={isVisiblePassw.passw ? 'text' : 'password'}
+          className={(password.isDirty && password.isEmpty) || (password.isDirty && password.minLengthError) || (password.isDirty && password.maxLengthError) ? 'input-field input-password input-field--error' : 'input-field input-password'}
+          type={isVisiblePassw ? 'text' : 'password'}
           placeholder='Пароль'
           name='password'
           autoComplete="off"
-          onChange={handlers.setPassw}
+          value={password.value}
+          onChange={e => password.onChange(e)}
+          onBlur={e => password.onBlur(e)}
         />
-        {(formValidation.password && formRegistration.password != '') &&
-          <div className="form-sign-up__error form-sign-up--password-error">
-            Ошибка
+        {
+          (password.isDirty && password.isEmpty) && <div className="form-sign-up__error form-sign-up--email-error">
+            Поле не может быть пустым
+          </div>
+        }
+        {
+          (password.isDirty && password.minLengthError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Минимум 6 знаков
+          </div>
+        }
+        {
+          (password.isDirty && password.maxLengthError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Максимум 20 знаков
           </div>
         }
       </div>
@@ -186,7 +117,7 @@ const FormSignUp = () => {
           Подтвердите пароль
         </label>
         <svg
-          onClick={handlers.setIsVisiblePassw}
+          onClick={handlers.setIsVisibleConfirmPassw}
           className="form-sign-up__confirm-password-pic"
           data-passw-pic='confirm-passw'
           width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -195,23 +126,18 @@ const FormSignUp = () => {
         </svg>
         <input
           id='sign-up-confirm-password'
-          className={validate('confirmPassw')}
-          type={isVisiblePassw.confirmPassw ? 'text' : 'password'}
+          className='input-field input-password'
+          type={isVisibleConfirmPassw ? 'text' : 'password'}
           placeholder='повторите пароль'
           name="confirm-password"
           autoComplete="off"
-          onChange={handlers.onChangeConfirmPassw}
         />
-        {(formValidation.confirmPassw && confirmPassw != '') &&
-          <div className="form-sign-up__error form-sign-up--password-error">
-            Ошибка
-          </div>
-        }
       </div>
       <div className="form-sign-up__wrapp-button">
         <Button
           width='100%'
           height='48px'
+          disabled={!email.inputValid || !password.inputValid}
           onClick={callbacks.onSignUp}
         >
           Зарегестрироваться
