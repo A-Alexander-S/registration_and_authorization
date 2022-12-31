@@ -109,3 +109,9 @@
   line-height: 16px;
   color: $grey;
 }
+
+@media (max-width: 600px) {
+  .form-sign-in {
+    width: 375px;
+  }
+}

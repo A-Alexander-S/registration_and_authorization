@@ -39,7 +39,7 @@ const UsersPage = () => {
     onGetUsers: useCallback(page => dispatch(getUsersThunk(page))),
     onLogout: useCallback(() => {
       dispatch(logoutActions.start());
-      navigate('/start');
+      navigate('/');
     }),
   }
 
