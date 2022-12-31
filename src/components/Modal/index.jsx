@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './modal.scss';
 
@@ -13,8 +14,4 @@ Modal.propTypes = {
   element: PropTypes.element
 }
 
-// Modal.defaultProps = {
-
-// }
-
-export default Modal;
+export default memo(Modal);

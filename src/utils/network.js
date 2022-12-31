@@ -1,3 +1,4 @@
+import { getToken } from "./token";
 
 //GET
 export const getApi = async (url) => {
@@ -19,12 +20,13 @@ export const getApi = async (url) => {
 
 //POST
 export const postApi = async (url, data) => {
+  const token = getToken();
   try {
     const res = await fetch(url, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-        // 'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(data)
     });
