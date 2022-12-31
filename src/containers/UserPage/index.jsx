@@ -16,7 +16,7 @@ const UserPage = () => {
   const select = useSelector(store => ({
     user: store.usersReducer.userData.user,
   }));
-
+  console.log("select.user:", select.user)
   const [widthWindow, setWidthWindow] = useState(1280);
 
   const token = getToken();
@@ -72,7 +72,10 @@ const UserPage = () => {
                     </div>
                     <div className="user-page__header-body-info">
                       <p className="user-page__name">
-                        {`${select.user?.first_name} ${select.user?.last_name}`}
+                        {select.user
+                          ? `${select.user?.first_name} ${select.user?.last_name}`
+                          : ''
+                        }
                       </p>
                       <p className="user-page__status">
                         Партнёр
