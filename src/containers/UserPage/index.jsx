@@ -37,7 +37,7 @@ const UserPage = () => {
     }),
     onLogout: useCallback(() => {
       dispatch(logoutActions.start());
-      navigate('/start');
+      navigate('/');
     }),
   }
 
