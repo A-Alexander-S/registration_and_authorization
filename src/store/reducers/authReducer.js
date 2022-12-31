@@ -17,8 +17,6 @@ const initialStore = {
 
 export default function authReducer(store = initialStore, action) {
   switch (action.type) {
-
-
     case POST_SIGN_IN.START: {
       return {
         ...store,
@@ -49,8 +47,6 @@ export default function authReducer(store = initialStore, action) {
         }
       }
     }
-
-
     case POST_SIGN_UP.START: {
       return {
         ...store,

@@ -1,5 +1,6 @@
 import { GET_USERS, GET_USER } from "../constants/actionTypes";
 
+//Получение всех пользователей
 export const getUsersActions = {
   start: () => ({
     type: GET_USERS.START
@@ -14,6 +15,7 @@ export const getUsersActions = {
   })
 }
 
+//Получение пользователя по его id
 export const getUserActions = {
   start: () => ({
     type: GET_USER.START

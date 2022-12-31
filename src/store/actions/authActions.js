@@ -1,5 +1,6 @@
 import { POST_SIGN_UP, POST_SIGN_IN, LOGOUT } from "../constants/actionTypes"
 
+//Регистрация
 export const postSignUpActions = {
   start: () => ({
     type: POST_SIGN_UP.START
@@ -14,6 +15,7 @@ export const postSignUpActions = {
   })
 }
 
+//Вход
 export const postSignInActions = {
   start: () => ({
     type: POST_SIGN_IN.START
@@ -28,6 +30,7 @@ export const postSignInActions = {
   }),
 }
 
+//Выход с аккаунта
 export const logoutActions = {
   start: () => ({
     type: LOGOUT.START

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './button.scss';
 
@@ -40,4 +41,4 @@ Button.defaultProps = {
   onClick: () => { }
 }
 
-export default Button;
+export default memo(Button);

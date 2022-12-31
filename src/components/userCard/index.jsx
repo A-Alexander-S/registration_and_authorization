@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './user-card.scss';
 
@@ -34,4 +35,4 @@ UserCard.propTypes = {
   avatar: PropTypes.string.isRequired,
 }
 
-export default UserCard;
+export default memo(UserCard);
