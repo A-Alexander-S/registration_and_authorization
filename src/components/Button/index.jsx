@@ -27,15 +27,17 @@ const Button = ({
 }
 
 Button.propTypes = {
-  children: PropTypes.string.isRequired,
-  height: PropTypes.string,
   width: PropTypes.string,
+  height: PropTypes.string,
+  children: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
 }
 
-// Button.defaultProps = {
-
-// }
+Button.defaultProps = {
+  width: '81px',
+  height: '38px',
+  onClick: () => { }
+}
 
 export default Button;

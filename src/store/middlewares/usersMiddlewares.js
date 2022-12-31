@@ -26,11 +26,9 @@ export const getUserThunk = (userId) => async (dispatch) => {
 
   const res = await getApi(`${USER_URL}/${userId}`);
   if (!res.ok) {
-    console.log('getUserThunk res:', res)
     dispatch(getUserActions.failure(res));
   }
 
   const data = await res.json()
-  console.log('getUserThunk data:', data.data)
   dispatch(getUserActions.success(data.data));
 }

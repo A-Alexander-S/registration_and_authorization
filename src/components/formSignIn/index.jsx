@@ -1,6 +1,7 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { postSignInThunk } from '../../store/middlewares/authMiddlewares';
+import { useInput } from '../../hooks/useInput';
 import Button from '../Button';
 import './form-sign-in.scss';
 
@@ -8,76 +9,16 @@ const FormSignIn = () => {
 
   const dispatch = useDispatch();
 
-  // eve.holt@reqres.in
-  const [formSignIn, setFormSignIn] = useState({
-    email: '',
-    password: '',
-  });
-  const [formValidation, setFormValidation] = useState({
-    email: false,
-    password: false,
-  });
+  const email = useInput('', { isEmpty: true, minLength: 9, isEmail: true });
+  const password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20 });
   const [isVisiblePassw, setIsVisiblePassw] = useState(false);
 
-  const validate = (field) => {
-    switch (field) {
-      case 'email':
-        return formValidation.email == true && formSignIn.email != ''
-          ? 'input-field input-field--error'
-          : 'input-field';
-        break;
-      case 'passw':
-        return formValidation.password == true && formSignIn.password != ''
-          ? 'input-field input-password input-field--error'
-          : 'input-field input-password';
-        break;
-      default:
-        break;
-    }
-  }
-
-  const handlers = {
-    setEmail: (e) => {
-      const email = e.currentTarget.value;
-
-      setFormValidation({
-        ...formValidation,
-        email: email == 'eve.holt@reqres.in' ? false : true
-      });
-
-      setFormSignIn({
-        ...formSignIn,
-        email: email
-      });
-    },
-    setPassw: (e) => {
-      const passw = e.currentTarget.value;
-
-      var pattern = new RegExp(/[A-Za-z0-9]{6,}/);
-
-      console.log('setPassw:', pattern.test(passw));
-
-      setFormValidation({
-        ...formValidation,
-        password: pattern.test(passw) ? false : true
-      });
-
-      setFormSignIn({
-        ...formSignIn,
-        password: e.currentTarget.value
-      });
-    },
-    setIsVisiblePassw: (e) => {
-      setIsVisiblePassw(!isVisiblePassw);
-    }
-
-  }
+  // eve.holt@reqres.in
 
   const callbacks = {
     onSignIn: useCallback((e) => {
       e.preventDefault();
-      console.log('onSetPassw setFormSignIn:', formSignIn);
-      dispatch(postSignInThunk(formSignIn));
+      dispatch(postSignInThunk({ email: email.value, password: password.value }));
     }),
   }
 
@@ -92,15 +33,27 @@ const FormSignIn = () => {
         </label>
         <input
           id='sign-in-email'
-          className={validate('email')}
+          className={(email.isDirty && email.minLengthError) || (email.isDirty && email.minLengthError) || (email.isDirty && email.emailError) ? 'input-field input-field--error' : 'input-field'}
           type='email'
           placeholder='eve.holt@reqres.in'
           autoComplete="off"
-          onChange={handlers.setEmail}
+          value={email.value}
+          onChange={e => email.onChange(e)}
+          onBlur={e => email.onBlur(e)}
         />
-        {(formValidation.email && setFormSignIn.email != '') &&
-          <div className="form-sign-in__error form-sign-in--email-error">
-            Ошибка
+        {
+          (email.isDirty && email.isEmpty) && <div className="form-sign-up__error form-sign-up--email-error">
+            Поле не может быть пустым
+          </div>
+        }
+        {
+          (email.isDirty && email.minLengthError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Минимум 9 знаков
+          </div>
+        }
+        {
+          (email.isDirty && email.emailError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Некоректный емейл
           </div>
         }
       </div>
@@ -109,7 +62,7 @@ const FormSignIn = () => {
           Пароль
         </label>
         <svg
-          onClick={handlers.setIsVisiblePassw}
+          onClick={() => setIsVisiblePassw(!isVisiblePassw)}
           className="form-sign-in__password-pic"
           data-passw-pic='passw'
           width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -118,15 +71,27 @@ const FormSignIn = () => {
         </svg>
         <input
           id='sign-in-password'
-          className={validate('passw')}
+          className={(password.isDirty && password.isEmpty) || (password.isDirty && password.minLengthError) || (password.isDirty && password.maxLengthError) ? 'input-field input-password input-field--error' : 'input-field input-password'}
           type={isVisiblePassw ? 'text' : 'password'}
           placeholder='Пароль'
           autoComplete="off"
-          onChange={handlers.setPassw}
+          value={password.value}
+          onChange={e => password.onChange(e)}
+          onBlur={e => password.onBlur(e)}
         />
-        {(formValidation.password && setFormSignIn.password != '') &&
-          <div className="form-sign-in__error form-sign-in--password-error">
-            Ошибка
+        {
+          (password.isDirty && password.isEmpty) && <div className="form-sign-up__error form-sign-up--email-error">
+            Поле не может быть пустым
+          </div>
+        }
+        {
+          (password.isDirty && password.minLengthError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Минимум 6 знаков
+          </div>
+        }
+        {
+          (password.isDirty && password.maxLengthError) && <div className="form-sign-up__error form-sign-up--email-error">
+            Максимум 20 знаков
           </div>
         }
       </div>
@@ -134,6 +99,7 @@ const FormSignIn = () => {
         <Button
           width='100%'
           height='48px'
+          disabled={!email.inputValid || !password.inputValid}
           onClick={callbacks.onSignIn}
         >
           Войти
@@ -143,4 +109,4 @@ const FormSignIn = () => {
   )
 }
 
-export default FormSignIn;
+export default memo(FormSignIn);

@@ -26,8 +26,6 @@ export default function usersReducer(store = initialStore, action) {
       }
     }
     case GET_USERS.SUCCESS: {
-      console.log('usersReducer GET_USERS.SUCCESS res:', action.payload)
-
       const pagination = {
         page: action.payload.page,
         per_page: action.payload.per_page,

@@ -85,6 +85,16 @@ export default function authReducer(store = initialStore, action) {
       removeToken();
       return {
         ...store,
+        userData: {
+          response: null,
+          isLoading: false,
+          error: null
+        },
+        signInData: {
+          response: null,
+          isLoading: false,
+          error: null
+        },
         isLogout: true
       }
     }
