@@ -21,7 +21,19 @@
     &--sign-up {
       margin-right: 50px;
     }
+  }
+}
 
-    &--sign-in {}
+@media (max-width: 600px) {
+  .start-page {
+    &__btns {
+      flex-direction: column;
+    }
+
+    &__wrapp-button--sign-up {
+      margin-right: 0;
+      margin-bottom: 20px;
+      margin-top: 40px;
+    }
   }
 }

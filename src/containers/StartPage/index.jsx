@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getToken } from '../../utils/token';
@@ -21,17 +21,16 @@ const StartPage = () => {
 
   const [modal, setModal] = useState({
     element: 'FormSignIn',
-    // element: 'FormSignIn',
     isActive: true
   });
 
   useEffect(() => {
     if (token) navigate('/users');
-  }, [select.userData]);
+  }, [select.userData, token]);
 
   useEffect(() => {
     if (token) navigate('/users');
-  }, [select.signInData]);
+  }, [select.signInData, token]);
 
   const callbacks = {
     onSetActiveFormSignUp: useCallback(() => {
@@ -75,7 +74,6 @@ const StartPage = () => {
       {modal.isActive &&
         <Modal
           element={modal.element == 'FormSignUp' ? <FormSignUp /> : <FormSignIn />}
-        // element={<FormSignUp />}
         />
       }
 
@@ -83,4 +81,4 @@ const StartPage = () => {
   )
 }
 
-export default StartPage;
+export default memo(StartPage);

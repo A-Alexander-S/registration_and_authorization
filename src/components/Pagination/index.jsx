@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import './pagination.scss';
 
@@ -96,4 +96,4 @@ Pagination.defaultProps = {
   onClick: () => { }
 }
 
-export default React.memo(Pagination);
+export default memo(Pagination);

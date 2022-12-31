@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { postSignUpThunk } from '../../store/middlewares/authMiddlewares';
 import { useInput } from '../../hooks/useInput';
@@ -7,13 +7,16 @@ import './form-sign-up.scss';
 // eve.holt@reqres.in
 const FormSignUp = () => {
 
-  const [isVisiblePassw, setIsVisiblePassw] = useState(false);
-  const [isVisibleConfirmPassw, setIsVisibleConfirmPassw] = useState(false);
-
   const dispatch = useDispatch();
 
   const email = useInput('', { isEmpty: true, minLength: 9, isEmail: true });
   const password = useInput('', { isEmpty: true, minLength: 6, maxLength: 20 });
+
+  const [isVisiblePassw, setIsVisiblePassw] = useState(false);
+  const [isVisibleConfirmPassw, setIsVisibleConfirmPassw] = useState(false);
+  const [confirmPassw, setConfirmPassw] = useState('');
+  const [isDirty, setDirty] = useState(false);
+
 
   const handlers = {
     setIsVisiblePassw: () => setIsVisiblePassw(!isVisiblePassw),
@@ -21,9 +24,9 @@ const FormSignUp = () => {
   }
 
   const callbacks = {
-    onSignUp: useCallback((e) => {
+    onSignUp: useCallback(() => {
       dispatch(postSignUpThunk({ email: email.value, password: password.value }));
-    }),
+    }, [email.value, password.value]),
   }
 
   return (
@@ -78,7 +81,7 @@ const FormSignUp = () => {
           Пароль
         </label>
         <svg
-          onClick={handlers.setIsVisiblePassw}
+          onClick={() => setIsVisiblePassw(!isVisiblePassw)}
           className="form-sign-up__password-pic"
           data-passw-pic='passw'
           width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -126,18 +129,21 @@ const FormSignUp = () => {
         </svg>
         <input
           id='sign-up-confirm-password'
-          className='input-field input-password'
+          className={(isDirty && confirmPassw !== password.value) || (isDirty && confirmPassw === '') ? 'input-field input-password input-field--error' : 'input-field input-password'}
           type={isVisibleConfirmPassw ? 'text' : 'password'}
           placeholder='повторите пароль'
           name="confirm-password"
           autoComplete="off"
+          value={confirmPassw}
+          onChange={e => setConfirmPassw(e.currentTarget.value)}
+          onBlur={() => setDirty(true)}
         />
       </div>
       <div className="form-sign-up__wrapp-button">
         <Button
           width='100%'
           height='48px'
-          disabled={!email.inputValid || !password.inputValid}
+          disabled={!email.inputValid || !password.inputValid || confirmPassw !== password.value}
           onClick={callbacks.onSignUp}
         >
           Зарегестрироваться
@@ -147,4 +153,4 @@ const FormSignUp = () => {
   )
 }
 
-export default FormSignUp;
+export default memo(FormSignUp);

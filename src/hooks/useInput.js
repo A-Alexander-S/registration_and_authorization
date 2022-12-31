@@ -48,7 +48,7 @@ const useValidation = (value, validations) => {
 
 export const useInput = (initialValue, validations) => {
   const [value, setValue] = useState(initialValue);
-  const [isDirty, setDirty] = useState(false);        //показывает вышлт из input тлт нет
+  const [isDirty, setDirty] = useState(false);        //показывает вышли из input или нет
   const valid = useValidation(value, validations);
 
   //Обрабатывает изменения внутри input

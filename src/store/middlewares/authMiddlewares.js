@@ -10,13 +10,11 @@ export const postSignUpThunk = (obj) => async (dispatch) => {
 
   const res = await postApi(REGISTER_URL, obj);
   if (!res.ok) {
-    console.log('postSignUpThunk data:', res)
     dispatch(postSignUpActions.failure(res));
     return;
   }
 
   const data = await res.json();
-  console.log('postSignUpThunk data:', data)
   dispatch(postSignUpActions.success(data));
 }
 
@@ -28,12 +26,10 @@ export const postSignInThunk = (obj) => async (dispatch) => {
 
   const res = await postApi(SING_IN_URL, obj);
   if (!res.ok) {
-    // console.log('postSignInThunk data:', res)
     dispatch(postSignInActions.failure(res));
     return;
   }
 
   const data = await res.json();
-  // console.log('postSignInThunk data:', data.token)
   dispatch(postSignInActions.success(data.token));
 }
