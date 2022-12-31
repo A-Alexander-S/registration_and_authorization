@@ -20,7 +20,7 @@ const StartPage = () => {
   }));
 
   const [modal, setModal] = useState({
-    element: 'FormSignIn',
+    element: 'FormSignUp',
     isActive: true
   });
 
