@@ -8,7 +8,7 @@ function Router() {
   return (
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="start" element={<StartPage />} />
+        <Route index path="start" element={<StartPage />} />
         <Route path="users" element={<UsersPage />} />
         <Route path="users/:id" element={<UserPage />} />
       </Route>
