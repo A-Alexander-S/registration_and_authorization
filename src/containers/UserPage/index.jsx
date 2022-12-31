@@ -16,7 +16,7 @@ const UserPage = () => {
   const select = useSelector(store => ({
     user: store.usersReducer.userData.user,
   }));
-  console.log("select.user:", select.user)
+
   const [widthWindow, setWidthWindow] = useState(1280);
 
   const token = getToken();
